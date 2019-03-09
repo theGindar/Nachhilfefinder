@@ -1,0 +1,10 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Copyright © ${date?date?string("yyyy")} Jan Leyendecker, Kevin Hartmann, Patrick Günther
+${licensePrefix}
+${licensePrefix}Dieser Quellcode ist lizenziert unter einer
+${licensePrefix}Creative Commons Namensnennung 4.0 International Lizenz.
+<#if licenseLast??>
+${licenseLast}
+</#if>
