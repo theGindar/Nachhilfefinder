@@ -4,7 +4,7 @@
  * Dieser Quellcode ist lizenziert unter einer
  * Creative Commons Namensnennung 4.0 International Lizenz.
  */
-package dhbw.wwi.vertsys.javaee.nachhilfefinder.offers.jpa;
+package dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa;
 
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.common.jpa.User;
 import java.io.Serializable;
