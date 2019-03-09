@@ -7,15 +7,10 @@
 package dhbw.wwi.vertsys.javaee.nachhilfefinder.offers.jpa;
 
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.common.jpa.User;
-import dhbwka.wwi.vertsys.javaee.nachhilfefinder.tasks.jpa.Category;
-import dhbwka.wwi.vertsys.javaee.nachhilfefinder.tasks.jpa.TaskStatus;
 import java.io.Serializable;
 import java.sql.Date;
-import java.sql.Time;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -104,7 +99,7 @@ public class Offer implements Serializable {
     }
 
     public void setStartDate(Date startDate) {
-        this.startDate = dueDate;
+        this.startDate = startDate;
     }
 
     //</editor-fold>
