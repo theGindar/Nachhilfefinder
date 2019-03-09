@@ -11,7 +11,7 @@
         roleNameCol="groupname" 
         userCredCol="password_hash" 
         userNameCol="username" 
-        userRoleTable="nachhilfefinder.jtodo_user_group" 
+        userRoleTable="nachhilfefinder.nachhilfefinder_user_group" 
         userTable="nachhilfefinder.nachhilfefinder_user">
       <CredentialHandler 
           algorithm="SHA-256" 
