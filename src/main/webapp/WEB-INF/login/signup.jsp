@@ -45,6 +45,22 @@
                     <div class="side-by-side">
                         <input type="text" name="signup_username" value="${signup_form.values["signup_username"][0]}">
                     </div>
+                    
+                    <label for="signup_first_name">
+                        Vorname:
+                        <span class="required">*</span>
+                    </label>
+                    <div class="side-by-side">
+                        <input type="text" name="signup_first_name" value="${signup_form.values["signup_first_name"][0]}">
+                    </div>
+                    
+                    <label for="signup_last_name">
+                        Nachname:
+                        <span class="required">*</span>
+                    </label>
+                    <div class="side-by-side">
+                        <input type="text" name="signup_last_name" value="${signup_form.values["signup_last_name"][0]}">
+                    </div>
 
                     <label for="signup_password1">
                         Passwort:
