@@ -34,6 +34,10 @@
         <div class="menuitem">
             <a href="<c:url value="/app/tasks/categories/"/>">Kategorien bearbeiten</a>
         </div>
+        
+        <div class="menuitem">
+            <a href="<c:url value="/app/offers/offer/create/"/>">Angebot erstellen</a>
+        </div>
     </jsp:attribute>
 
     <jsp:attribute name="content">

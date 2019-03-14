@@ -52,16 +52,16 @@ public class OfferEditServlet extends HttpServlet {
         Offer offer = this.getRequestedOffer(request);
         request.setAttribute("edit", offer.getId() != 0);
                                 
-        if (session.getAttribute("task_form") == null) {
+        if (session.getAttribute("offer_form") == null) {
             // Keine Formulardaten mit fehlerhaften Daten in der Session,
             // daher Formulardaten aus dem Datenbankobjekt übernehmen
-            request.setAttribute("task_form", this.createOfferForm(offer));
+            request.setAttribute("offer_form", this.createOfferForm(offer));
         }
 
         // Anfrage an die JSP weiterleiten
-        request.getRequestDispatcher("/WEB-INF/tasks/task_edit.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/offers/offer_edit.jsp").forward(request, response);
         
-        session.removeAttribute("task_form");
+        session.removeAttribute("offer_form");
     }
 
     @Override
@@ -155,7 +155,7 @@ public class OfferEditServlet extends HttpServlet {
         this.offerBean.delete(offer);
 
         // Zurück zur Übersicht
-        response.sendRedirect(WebUtils.appUrl(request, "/app/tasks/list/"));
+        response.sendRedirect(WebUtils.appUrl(request, "/app/offers/list/"));
     }
 
     /**
