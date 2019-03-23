@@ -29,9 +29,23 @@ public class OfferBean extends EntityBean<Offer, Long> {
     }
     
     public List<Offer> findByUsername(String username) {
-        return em.createQuery("SELECT t FROM Task t WHERE t.owner.username = :username ORDER BY t.startDate")
+        return em.createQuery("SELECT o FROM Offer o WHERE o.owner.username = :username ORDER BY o.startDate")
                  .setParameter("username", username)
                  .getResultList();
+    }
+    
+    public List<Offer> findByPrice(double min, double max) {
+        return em.createQuery("SELECT t FROM Offer t WHERE t.price BETWEEN :min AND :max ORDER BY t.startDate")
+                 .setParameter("min", min)
+                 .setParameter("max", max)
+                 .getResultList();
+    }
+    
+    public Offer findById(long id) {
+        List result = em.createQuery("SELECT t FROM Offer t WHERE t.id EQUALS :id")
+                 .setParameter("id", id)
+                 .getResultList();
+        return (Offer)result.get(0);
     }
     
     // nach Titel suchen

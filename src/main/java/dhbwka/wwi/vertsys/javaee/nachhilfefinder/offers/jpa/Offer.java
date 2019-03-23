@@ -46,6 +46,10 @@ public class Offer implements Serializable {
     @Lob
     @NotNull (message = "Die Beschreibung darf nicht leer sein.")
     private String description;
+    
+    @Column(precision = 5, scale = 2)
+    @Size(min = (int) 0.00, max = (int) 100.00, message = "Der Preis muss zwischen 0.00€ und 100.00€ liegen.")
+    private double price;
 
     @NotNull(message = "Das voraussichtliche Startdatum darf nicht leer sein.")
     private Date startDate;
@@ -54,11 +58,12 @@ public class Offer implements Serializable {
     public Offer() {
     }
 
-    public Offer(User owner, String title, String description, Date startDate) {
+    public Offer(User owner, String title, String description, Date startDate, double price) {
         this.owner = owner;
         this.title = title;
         this.description = description;
         this.startDate = startDate;
+        this.price = price;
     }
     //</editor-fold>
 
@@ -100,6 +105,14 @@ public class Offer implements Serializable {
 
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
+    }
+    
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     //</editor-fold>

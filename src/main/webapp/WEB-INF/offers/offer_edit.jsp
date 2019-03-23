@@ -92,6 +92,13 @@
                 <div class="side-by-side">
                     <input type="text" name="offer_title" value="${offer_form.values["offer_title"][0]}">
                 </div>
+                
+                <label for="offer_description">
+                    Preis:
+                </label>
+                <div class="side-by-side">
+                    <input name="offer_description"><c:out value="${offer_form.values['offer_price'][0]}"/></input>
+                </div>
 
                 <label for="offer_description">
                     Angebotsbeschreibung:

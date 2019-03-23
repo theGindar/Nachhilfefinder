@@ -102,6 +102,7 @@ public class OfferEditServlet extends HttpServlet {
         String offerStartDate = request.getParameter("offer_start_date");
         String offerTitle = request.getParameter("offer_title");
         String offerDescription = request.getParameter("offer_description");
+        double offerPrice = Double.valueOf(request.getParameter("offer_price"));
 
         Offer offer = this.getRequestedOffer(request);
 
@@ -114,6 +115,7 @@ public class OfferEditServlet extends HttpServlet {
         }
         offer.setTitle(offerTitle);
         offer.setDescription(offerDescription);
+        offer.setPrice(offerPrice);
 
         this.validationBean.validate(offer, errors);
 
