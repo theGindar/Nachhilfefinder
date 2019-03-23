@@ -9,13 +9,15 @@ package dhbwka.wwi.vertsys.javaee.nachhilfefinder.common.api;
 import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
 
 /**
  *
  * @author patrickguenther
  */
 @ApplicationPath("api")
-public class OfferAPI {
+public class OfferAPI extends Application{
+    @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new HashSet<>();
 

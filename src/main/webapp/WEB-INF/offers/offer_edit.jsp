@@ -97,7 +97,7 @@
                     Preis:
                 </label>
                 <div class="side-by-side">
-                    <input name="offer_description"><c:out value="${offer_form.values['offer_price'][0]}"/></input>
+                    <input type="number" name="offer_price"><c:out value="${offer_form.values['offer_price'][0]}"/></input>
                 </div>
 
                 <label for="offer_description">

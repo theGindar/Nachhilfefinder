@@ -21,7 +21,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author patrickguenther
  */
-@Stateless
+//@Stateless
 @Path("Offers")
 public class OfferResource {
     @EJB

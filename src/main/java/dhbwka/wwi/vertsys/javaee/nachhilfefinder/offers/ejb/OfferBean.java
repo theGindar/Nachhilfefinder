@@ -42,7 +42,7 @@ public class OfferBean extends EntityBean<Offer, Long> {
     }
     
     public Offer findById(long id) {
-        List result = em.createQuery("SELECT t FROM Offer t WHERE t.id EQUALS :id")
+        List result = em.createQuery("SELECT t FROM Offer t WHERE t.id = :id")
                  .setParameter("id", id)
                  .getResultList();
         return (Offer)result.get(0);

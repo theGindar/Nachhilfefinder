@@ -17,6 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.TableGenerator;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -48,7 +50,7 @@ public class Offer implements Serializable {
     private String description;
     
     @Column(precision = 5, scale = 2)
-    @Size(min = (int) 0.00, max = (int) 100.00, message = "Der Preis muss zwischen 0.00€ und 100.00€ liegen.")
+    @Min(value = (long) 0.00, message = "Der Preis darf nicht kleiner als 0.00€ sein.")
     private double price;
 
     @NotNull(message = "Das voraussichtliche Startdatum darf nicht leer sein.")

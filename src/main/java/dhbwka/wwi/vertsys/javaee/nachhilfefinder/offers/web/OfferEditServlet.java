@@ -13,6 +13,7 @@ import dhbwka.wwi.vertsys.javaee.nachhilfefinder.common.web.WebUtils;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.ejb.OfferBean;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa.Offer;
 import java.io.IOException;
+import static java.lang.System.console;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import jdk.internal.net.http.common.Log;
 
 /**
  *
@@ -102,7 +104,7 @@ public class OfferEditServlet extends HttpServlet {
         String offerStartDate = request.getParameter("offer_start_date");
         String offerTitle = request.getParameter("offer_title");
         String offerDescription = request.getParameter("offer_description");
-        double offerPrice = Double.valueOf(request.getParameter("offer_price"));
+        String offerPrice = request.getParameter("offer_price");
 
         Offer offer = this.getRequestedOffer(request);
 
@@ -115,7 +117,7 @@ public class OfferEditServlet extends HttpServlet {
         }
         offer.setTitle(offerTitle);
         offer.setDescription(offerDescription);
-        offer.setPrice(offerPrice);
+        offer.setPrice(Double.parseDouble(offerPrice));
 
         this.validationBean.validate(offer, errors);
 
