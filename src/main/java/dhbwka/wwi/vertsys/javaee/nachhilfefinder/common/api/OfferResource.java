@@ -15,6 +15,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -23,14 +24,30 @@ import javax.ws.rs.core.MediaType;
  */
 //@Stateless
 @Path("Offers")
+@Produces(MediaType.APPLICATION_JSON)
 public class OfferResource {
     @EJB
     OfferBean offerBean;
     
     @GET
     @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
     public Offer getOfferById(@PathParam("id") long id){
         return offerBean.findById(id);
     }
+    
+    @GET
+    @Path("query")
+    public List<Offer> getOffersByPrice(@QueryParam("minprice") double min, @QueryParam("maxprice") double max){
+        return offerBean.findByPrice(min, max);
+    }
+    
+    @GET
+    @Path("query")
+    public List<Offer> getOffersByUsername(@QueryParam("username") String username){
+        return offerBean.findByUsername(username);
+    }
+    
+    //@Path("query")
+    //public List<Offer> getOffersByPrice()
+    
 }

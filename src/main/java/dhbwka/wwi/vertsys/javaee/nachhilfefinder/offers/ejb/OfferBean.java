@@ -8,6 +8,8 @@ package dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.ejb;
 
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.common.ejb.EntityBean;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa.Offer;
+import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa.OfferStatus;
+import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa.Subject;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -49,11 +51,11 @@ public class OfferBean extends EntityBean<Offer, Long> {
     }
     
     // nach Titel suchen
-    public List<Offer> search(String search) {
+    public List<Offer> search(String search, Subject subject, OfferStatus status) {
         // Hilfsobjekt zum Bauen des Query
         CriteriaBuilder cb = this.em.getCriteriaBuilder();
         
-        // SELECT t FROM Task t
+        // SELECT t FROM Offer t
         CriteriaQuery<Offer> query = cb.createQuery(Offer.class);
         Root<Offer> from = query.from(Offer.class);
         query.select(from);
@@ -66,6 +68,18 @@ public class OfferBean extends EntityBean<Offer, Long> {
         
         if (search != null && !search.trim().isEmpty()) {
             p = cb.and(p, cb.like(from.get("title"), "%" + search + "%"));
+            query.where(p);
+        }
+        
+        // WHERE t.subject = :subject
+        if (subject != null) {
+            p = cb.and(p, cb.equal(from.get("subject"), subject));
+            query.where(p);
+        }
+        
+        // WHERE t.status = :status
+        if (status != null) {
+            p = cb.and(p, cb.equal(from.get("status"), status));
             query.where(p);
         }
         

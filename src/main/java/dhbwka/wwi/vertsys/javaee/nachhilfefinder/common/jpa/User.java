@@ -9,7 +9,7 @@
  */
 package dhbwka.wwi.vertsys.javaee.nachhilfefinder.common.jpa;
 
-import dhbwka.wwi.vertsys.javaee.nachhilfefinder.tasks.jpa.Task;
+import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa.Offer;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -76,7 +76,7 @@ public class User implements Serializable {
     List<String> groups = new ArrayList<>();
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    List<Task> tasks = new ArrayList<>();
+    List<Offer> offers = new ArrayList<>();
 
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
     public User() {
@@ -104,24 +104,24 @@ public class User implements Serializable {
         return firstName;
     }
 
-    public void setFirstName(String id) {
-        this.firstName = id;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
     
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String id) {
-        this.lastName = id;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public List<Offer> getOffers() {
+        return offers;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+    public void setOffers(List<Offer> offer) {
+        this.offers = offer;
     }
     //</editor-fold>
 

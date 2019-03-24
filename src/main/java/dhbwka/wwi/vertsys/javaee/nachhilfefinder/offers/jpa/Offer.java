@@ -7,10 +7,14 @@
 package dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa;
 
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.common.jpa.User;
+import dhbwka.wwi.vertsys.javaee.nachhilfefinder.tasks.jpa.Category;
+import dhbwka.wwi.vertsys.javaee.nachhilfefinder.tasks.jpa.TaskStatus;
 import java.io.Serializable;
 import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,6 +43,9 @@ public class Offer implements Serializable {
     @ManyToOne
     @NotNull(message = "Das Angebot muss einem Benutzer zugeordnet werden.")
     private User owner;
+    
+    @ManyToOne
+    private Subject subject;
 
     @Column(length = 50)
     @NotNull(message = "Der Titel darf nicht leer sein.")
@@ -55,6 +62,10 @@ public class Offer implements Serializable {
 
     @NotNull(message = "Das voraussichtliche Startdatum darf nicht leer sein.")
     private Date startDate;
+    
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private OfferStatus status = OfferStatus.OPEN;
 
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
     public Offer() {
