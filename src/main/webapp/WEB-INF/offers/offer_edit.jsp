@@ -59,7 +59,7 @@
                             </option>
                         </c:forEach>
                     </select>
-                    <a href="<c:url value="/app/tasks/categories/"/>"><button type="button">Neues Fach anlegen</button></a>
+                    <a href="<c:url value="/app/offers/subjects/"/>"><button type="button">Neues Fach anlegen</button></a>
                 </div>
                 
 

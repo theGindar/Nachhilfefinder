@@ -11,9 +11,9 @@ import dhbwka.wwi.vertsys.javaee.nachhilfefinder.common.ejb.ValidationBean;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.common.web.FormValues;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.common.web.WebUtils;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.ejb.OfferBean;
+import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.ejb.SubjectBean;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa.Offer;
 import java.io.IOException;
-import static java.lang.System.console;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import jdk.internal.net.http.common.Log;
 
 /**
  *
@@ -40,6 +39,9 @@ public class OfferEditServlet extends HttpServlet {
 
     @EJB
     UserBean userBean;
+    
+    @EJB
+    SubjectBean subjectBean;
 
     @EJB
     ValidationBean validationBean;
@@ -47,7 +49,8 @@ public class OfferEditServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        request.setAttribute("subjects", this.subjectBean.findAllSorted());
         // Zu bearbeitende Aufgabe einlesen
         HttpSession session = request.getSession();
 
@@ -101,12 +104,21 @@ public class OfferEditServlet extends HttpServlet {
         // Formulareingaben prüfen
         List<String> errors = new ArrayList<>();
 
+        String offerSubject = request.getParameter("offer_subject");
         String offerStartDate = request.getParameter("offer_start_date");
         String offerTitle = request.getParameter("offer_title");
         String offerDescription = request.getParameter("offer_description");
         String offerPrice = request.getParameter("offer_price");
 
         Offer offer = this.getRequestedOffer(request);
+        
+        if (offerSubject != null && !offerSubject.trim().isEmpty()) {
+            try {
+                offer.setSubject(this.subjectBean.findById(Long.parseLong(offerSubject)));
+            } catch (NumberFormatException ex) {
+                // Ungültige oder keine ID mitgegeben
+            }
+        }
 
         Date startDate = WebUtils.parseDate(offerStartDate);
 
@@ -214,6 +226,12 @@ public class OfferEditServlet extends HttpServlet {
         values.put("offer_owner", new String[]{
             offer.getOwner().getUsername()
         });
+        
+        if (offer.getSubject() != null) {
+            values.put("offer_subject", new String[]{
+                "" + offer.getSubject().getId()
+            });
+        }
 
         values.put("offer_start_date", new String[]{
             WebUtils.formatDate(offer.getStartDate())
