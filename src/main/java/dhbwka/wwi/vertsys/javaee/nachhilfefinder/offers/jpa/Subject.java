@@ -6,11 +6,12 @@
  */
 package dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa;
 
-import dhbwka.wwi.vertsys.javaee.nachhilfefinder.tasks.jpa.Task;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,7 @@ import javax.validation.constraints.Size;
  *
  * @author Kevin Hartmann
  */
+@Entity
 public class Subject implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -39,7 +41,7 @@ public class Subject implements Serializable {
     private String name;
 
     @OneToMany(mappedBy = "subject", fetch = FetchType.LAZY)
-    List<Task> tasks = new ArrayList<>();
+    List<Offer> offers = new ArrayList<>();
 
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
     public Subject() {
@@ -67,12 +69,12 @@ public class Subject implements Serializable {
         this.name = name;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public List<Offer> getOffers() {
+        return offers;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+    public void setOffers(List<Offer> offers) {
+        this.offers = offers;
     }
     //</editor-fold>
 

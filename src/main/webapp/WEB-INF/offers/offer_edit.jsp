@@ -23,7 +23,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="head">
-        <link rel="stylesheet" href="<c:url value="/css/task_edit.css"/>" />
+        <link rel="stylesheet" href="<c:url value="/css/offer_edit.css"/>" />
     </jsp:attribute>
 
     <jsp:attribute name="menu">
@@ -48,20 +48,20 @@
                     <input type="text" name="offer_owner" value="${offer_form.values["offer_owner"][0]}" readonly="readonly">
                 </div>
                 
-                <!--
-                <label for="task_category">Kategorie:</label>
+                <label for="offer_subject">Fach:</label>
                 <div class="side-by-side">
-                    <select name="task_category">
+                    <select name="offer_subject">
                         <option value="">Keine Kategorie</option>
 
-                        <c:forEach items="${categories}" var="category">
-                            <option value="${category.id}" ${offer_form.values["offer_category"][0] == category.id.toString() ? 'selected' : ''}>
-                                <c:out value="${category.name}" />
+                        <c:forEach items="${subjects}" var="subject">
+                            <option value="${subject.id}" ${offer_form.values["offer_subject"][0] == subject.id.toString() ? 'selected' : ''}>
+                                <c:out value="${subject.name}" />
                             </option>
                         </c:forEach>
                     </select>
+                    <a href="<c:url value="/app/tasks/categories/"/>"><button type="button">Neues Fach anlegen</button></a>
                 </div>
-                -->
+                
 
                 <label for="offer_start_date">
                     Angebot gültig ab:

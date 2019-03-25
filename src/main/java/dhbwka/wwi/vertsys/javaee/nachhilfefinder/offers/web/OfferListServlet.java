@@ -11,11 +11,6 @@ import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.ejb.SubjectBean;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa.Offer;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa.OfferStatus;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa.Subject;
-import dhbwka.wwi.vertsys.javaee.nachhilfefinder.tasks.ejb.CategoryBean;
-import dhbwka.wwi.vertsys.javaee.nachhilfefinder.tasks.ejb.TaskBean;
-import dhbwka.wwi.vertsys.javaee.nachhilfefinder.tasks.jpa.Category;
-import dhbwka.wwi.vertsys.javaee.nachhilfefinder.tasks.jpa.Task;
-import dhbwka.wwi.vertsys.javaee.nachhilfefinder.tasks.jpa.TaskStatus;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -76,6 +71,6 @@ public class OfferListServlet extends HttpServlet {
         request.setAttribute("offers", offers);
 
         // Anfrage an die JSP weiterleiten
-        request.getRequestDispatcher("/WEB-INF/offers/offer_list.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/offers/all_offer_list.jsp").forward(request, response);
     }
 }

@@ -25,9 +25,9 @@ public class SubjectBean extends EntityBean<Subject, Long> {
     }
 
     /**
-     * Auslesen aller Kategorien, alphabetisch sortiert.
+     * Auslesen aller Fächer, alphabetisch sortiert.
      *
-     * @return Liste mit allen Kategorien
+     * @return Liste mit allen Fächern
      */
     public List<Subject> findAllSorted() {
         return this.em.createQuery("SELECT s FROM Subject s ORDER BY s.name").getResultList();
