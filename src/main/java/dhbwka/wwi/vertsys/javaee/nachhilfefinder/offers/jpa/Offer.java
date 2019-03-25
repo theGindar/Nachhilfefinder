@@ -135,6 +135,14 @@ public class Offer implements Serializable {
     public void setSubject(Subject subject) {
         this.subject = subject;
     }
+    
+    public OfferStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OfferStatus status) {
+        this.status = status;
+    }
 
     //</editor-fold>
 

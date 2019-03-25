@@ -12,7 +12,6 @@ import javax.persistence.Entity;
  *
  * @author Jan Leyendecker
  */
-@Entity
 public enum OfferStatus {
     OPEN, IN_PROGRESS, FINISHED, CANCELED, POSTPONED;
 

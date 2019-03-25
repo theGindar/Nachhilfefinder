@@ -13,6 +13,7 @@ import dhbwka.wwi.vertsys.javaee.nachhilfefinder.common.web.WebUtils;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.ejb.OfferBean;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.ejb.SubjectBean;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa.Offer;
+import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa.OfferStatus;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -105,6 +106,7 @@ public class OfferEditServlet extends HttpServlet {
         List<String> errors = new ArrayList<>();
 
         String offerSubject = request.getParameter("offer_subject");
+        String offerStatus = "OPEN";
         String offerStartDate = request.getParameter("offer_start_date");
         String offerTitle = request.getParameter("offer_title");
         String offerDescription = request.getParameter("offer_description");
@@ -127,6 +129,9 @@ public class OfferEditServlet extends HttpServlet {
         } else {
             errors.add("Das Datum muss dem Format dd.mm.yyyy entsprechen.");
         }
+        offer.setStatus(OfferStatus.valueOf(offerStatus));
+        
+
         offer.setTitle(offerTitle);
         offer.setDescription(offerDescription);
         offer.setPrice(Double.parseDouble(offerPrice));
