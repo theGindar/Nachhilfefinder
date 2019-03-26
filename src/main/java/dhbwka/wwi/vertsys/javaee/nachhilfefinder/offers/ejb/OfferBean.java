@@ -31,20 +31,20 @@ public class OfferBean extends EntityBean<Offer, Long> {
     }
     
     public List<Offer> findByUsername(String username) {
-        return em.createQuery("SELECT o FROM Offer o WHERE o.owner.username = :username ORDER BY o.startDate")
+        return em.createQuery("SELECT o FROM Offer o WHERE o.owner.username = :username ORDER BY o.price")
                  .setParameter("username", username)
                  .getResultList();
     }
     
     public List<Offer> findByPrice(double min, double max) {
-        return em.createQuery("SELECT t FROM Offer t WHERE t.price BETWEEN :min AND :max ORDER BY t.startDate")
+        return em.createQuery("SELECT o FROM Offer o WHERE o.price BETWEEN :min AND :max ORDER BY o.price")
                  .setParameter("min", min)
                  .setParameter("max", max)
                  .getResultList();
     }
     
     public Offer findById(long id) {
-        List result = em.createQuery("SELECT t FROM Offer t WHERE t.id = :id")
+        List result = em.createQuery("SELECT o FROM Offer o WHERE o.id = :id")
                  .setParameter("id", id)
                  .getResultList();
         return (Offer)result.get(0);
@@ -59,9 +59,6 @@ public class OfferBean extends EntityBean<Offer, Long> {
         CriteriaQuery<Offer> query = cb.createQuery(Offer.class);
         Root<Offer> from = query.from(Offer.class);
         query.select(from);
-
-        // ORDER BY startDate
-        query.orderBy(cb.asc(from.get("startDate")));
         
         // WHERE t.title LIKE :search
         Predicate p = cb.conjunction();
