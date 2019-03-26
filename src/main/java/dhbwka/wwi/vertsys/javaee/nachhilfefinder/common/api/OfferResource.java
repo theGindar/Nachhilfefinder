@@ -7,6 +7,7 @@
 package dhbwka.wwi.vertsys.javaee.nachhilfefinder.common.api;
 
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.ejb.OfferBean;
+import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.ejb.ShortOffer;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa.Offer;
 import java.util.List;
 import javax.ejb.EJB;
@@ -31,22 +32,27 @@ public class OfferResource {
     
     @GET
     @Path("{id}")
-    public Offer getOfferById(@PathParam("id") long id){
-        return offerBean.findById(id);
+    public ShortOffer getOfferById(@PathParam("id") long id){
+        return convertOfferToShortOffer(this.offerBean.findById(id));
     }
     
     @GET
     @Path("query")
     public List<Offer> getOffersByPrice(@QueryParam("minprice") double min, @QueryParam("maxprice") double max){
-        return offerBean.findByPrice(min, max);
+        return this.offerBean.findByPrice(min, max);
     }
     
     @GET
     @Path("query")
     public List<Offer> getOffersByUsername(@QueryParam("username") String username){
-        return offerBean.findByUsername(username);
+        return this.offerBean.findByUsername(username);
     }
     
+    public ShortOffer convertOfferToShortOffer(Offer offer){
+        //long id, String username, String title, String description, double price, Date startDate
+        ShortOffer sOffer = new ShortOffer(offer.getId(), offer.getOwner().getUsername(), offer.getTitle(), offer.getDescription(), offer.getPrice());
+        return sOffer;
+    }
     //@Path("query")
     //public List<Offer> getOffersByPrice()
     

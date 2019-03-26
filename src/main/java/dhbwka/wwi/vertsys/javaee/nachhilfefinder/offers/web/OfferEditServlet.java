@@ -107,7 +107,6 @@ public class OfferEditServlet extends HttpServlet {
 
         String offerSubject = request.getParameter("offer_subject");
         String offerStatus = "OPEN";
-        String offerStartDate = request.getParameter("offer_start_date");
         String offerTitle = request.getParameter("offer_title");
         String offerDescription = request.getParameter("offer_description");
         String offerPrice = request.getParameter("offer_price");
@@ -121,14 +120,7 @@ public class OfferEditServlet extends HttpServlet {
                 // Ungültige oder keine ID mitgegeben
             }
         }
-
-        Date startDate = WebUtils.parseDate(offerStartDate);
-
-        if (startDate != null) {
-            offer.setStartDate(startDate);
-        } else {
-            errors.add("Das Datum muss dem Format dd.mm.yyyy entsprechen.");
-        }
+        
         offer.setStatus(OfferStatus.valueOf(offerStatus));
         
 
@@ -190,7 +182,6 @@ public class OfferEditServlet extends HttpServlet {
     private Offer getRequestedOffer(HttpServletRequest request) {
         Offer offer = new Offer();
         offer.setOwner(this.userBean.getCurrentUser());
-        offer.setStartDate(new Date(System.currentTimeMillis()));
 
         // ID aus der URL herausschneiden
         String offerId = request.getPathInfo();
@@ -237,10 +228,6 @@ public class OfferEditServlet extends HttpServlet {
                 "" + offer.getSubject().getId()
             });
         }
-
-        values.put("offer_start_date", new String[]{
-            WebUtils.formatDate(offer.getStartDate())
-        });
 
         values.put("offer_title", new String[]{
             offer.getTitle()

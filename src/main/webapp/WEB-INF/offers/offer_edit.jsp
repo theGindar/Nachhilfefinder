@@ -63,13 +63,7 @@
                 </div>
                 
 
-                <label for="offer_start_date">
-                    Angebot gültig ab:
-                    <span class="required">*</span>
-                </label>
-                <div class="side-by-side">
-                    <input type="text" name="offer_start_date" value="${offer_form.values["offer_start_date"][0]}">
-                </div>
+                
 
                 <!--<label for="task_status">
                     Status:

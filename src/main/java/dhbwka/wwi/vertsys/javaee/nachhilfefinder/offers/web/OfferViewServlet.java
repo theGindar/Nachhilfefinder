@@ -15,7 +15,6 @@ import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.ejb.SubjectBean;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa.Offer;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa.OfferStatus;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -138,8 +137,6 @@ public class OfferViewServlet extends HttpServlet {
      */
     private Offer getRequestedOffer(HttpServletRequest request, HttpServletResponse response) {
         Offer offer = new Offer();
-        //offer.setOwner(this.userBean.getCurrentUser());
-        //offer.setStartDate(new Date(System.currentTimeMillis()));
 
         // ID aus der URL herausschneiden
         String offerId = request.getPathInfo();
@@ -190,10 +187,6 @@ public class OfferViewServlet extends HttpServlet {
                 "" + offer.getSubject().getId()
             });
         }
-
-        values.put("offer_start_date", new String[]{
-            WebUtils.formatDate(offer.getStartDate())
-        });
 
         values.put("offer_title", new String[]{
             offer.getTitle()

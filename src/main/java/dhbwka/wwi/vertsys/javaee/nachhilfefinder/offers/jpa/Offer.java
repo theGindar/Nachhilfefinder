@@ -7,7 +7,6 @@
 package dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa;
 
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.common.jpa.User;
-import dhbwka.wwi.vertsys.javaee.nachhilfefinder.tasks.jpa.Category;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.tasks.jpa.TaskStatus;
 import java.io.Serializable;
 import java.sql.Date;
@@ -59,9 +58,6 @@ public class Offer implements Serializable {
     @Column(precision = 5, scale = 2)
     @Min(value = (long) 0.00, message = "Der Preis darf nicht kleiner als 0.00€ sein.")
     private double price;
-
-    @NotNull(message = "Das voraussichtliche Startdatum darf nicht leer sein.")
-    private Date startDate;
     
     @Enumerated(EnumType.STRING)
     @NotNull
@@ -75,7 +71,6 @@ public class Offer implements Serializable {
         this.owner = owner;
         this.title = title;
         this.description = description;
-        this.startDate = startDate;
         this.price = price;
     }
     //</editor-fold>
@@ -111,13 +106,6 @@ public class Offer implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
     }
     
     public double getPrice() {

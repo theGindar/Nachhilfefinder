@@ -98,10 +98,7 @@
                             </td>
                             <td>
                                 <c:out value="${offer.status.label}"/>
-                            </td>
-                            <td>
-                                <c:out value="${utils.formatDate(offer.startDate)}"/>
-                            </td>
+                            </td>                           
                         </tr>
                     </c:forEach>
                 </table>

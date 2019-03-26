@@ -41,6 +41,8 @@ public class UserBean {
     /**
      *
      * @param username
+     * @param firstName
+     * @param lastName
      * @param password
      * @throws UserBean.UserAlreadyExistsException
      */
