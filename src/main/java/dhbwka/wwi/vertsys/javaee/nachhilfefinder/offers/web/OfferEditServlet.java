@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -50,24 +51,28 @@ public class OfferEditServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        request.setAttribute("subjects", this.subjectBean.findAllSorted());
-        // Zu bearbeitende Aufgabe einlesen
-        HttpSession session = request.getSession();
+        if(checkAuthorization(request)){
+            request.setAttribute("subjects", this.subjectBean.findAllSorted());
+            // Zu bearbeitende Aufgabe einlesen
+            HttpSession session = request.getSession();
 
-        Offer offer = this.getRequestedOffer(request);
-        request.setAttribute("edit", offer.getId() != 0);
-                                
-        if (session.getAttribute("offer_form") == null) {
-            // Keine Formulardaten mit fehlerhaften Daten in der Session,
-            // daher Formulardaten aus dem Datenbankobjekt übernehmen
-            request.setAttribute("offer_form", this.createOfferForm(offer));
+            Offer offer = this.getRequestedOffer(request);
+            request.setAttribute("edit", offer.getId() != 0);
+
+            if (session.getAttribute("offer_form") == null) {
+                // Keine Formulardaten mit fehlerhaften Daten in der Session,
+                // daher Formulardaten aus dem Datenbankobjekt übernehmen
+                request.setAttribute("offer_form", this.createOfferForm(offer));
+            }
+
+            // Anfrage an die JSP weiterleiten
+            request.getRequestDispatcher("/WEB-INF/offers/offer_edit.jsp").forward(request, response);
+
+            session.removeAttribute("offer_form");
+        }else{
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/offers/offer_error.jsp");
+            dispatcher.forward(request, response);
         }
-
-        // Anfrage an die JSP weiterleiten
-        request.getRequestDispatcher("/WEB-INF/offers/offer_edit.jsp").forward(request, response);
-        
-        session.removeAttribute("offer_form");
     }
 
     @Override
@@ -115,7 +120,7 @@ public class OfferEditServlet extends HttpServlet {
         
         if (offerSubject != null && !offerSubject.trim().isEmpty()) {
             try {
-                offer.setSubject(this.subjectBean.findById(Long.parseLong(offerSubject)));
+                offer.setSubject(this.subjectBean.findById(Long.valueOf(offerSubject).longValue()));
             } catch (NumberFormatException ex) {
                 // Ungültige oder keine ID mitgegeben
             }
@@ -240,6 +245,41 @@ public class OfferEditServlet extends HttpServlet {
         FormValues formValues = new FormValues();
         formValues.setValues(values);
         return formValues;
+    }
+    
+    // prüft, ob der Benutzer dieses Angebot ändern darf (ob er der Besitzer des Angebots ist) 
+    private boolean checkAuthorization(HttpServletRequest request){
+        if(request.getPathInfo() == null){
+            return true;
+        }
+        
+        StringBuffer offerIdBuffer = new StringBuffer(request.getPathInfo());
+        offerIdBuffer.deleteCharAt(0);
+        
+        String offerId = offerIdBuffer.toString();
+         
+        System.out.println("+++++++++++++++     die offerId ist:");
+        System.out.println(offerId);
+        boolean authorized = false;
+        
+        if (offerId.endsWith("/")) {
+            offerId = offerId.substring(0, offerId.length() - 1);
+        }
+        
+        Offer offer;
+        
+        try {
+            offer = this.offerBean.findById(Long.parseLong(offerId));
+        } catch (NumberFormatException ex) {
+            // Ungültige oder keine ID in der URL enthalten
+            return true;
+        }
+        
+        if(offer.getOwner().getUsername().equals(this.userBean.getCurrentUser().getUsername())){
+            authorized = true;
+        }
+        
+        return authorized;
     }
 
 }
