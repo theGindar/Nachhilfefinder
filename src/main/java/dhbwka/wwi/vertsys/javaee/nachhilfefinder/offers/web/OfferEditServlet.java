@@ -257,9 +257,6 @@ public class OfferEditServlet extends HttpServlet {
         offerIdBuffer.deleteCharAt(0);
         
         String offerId = offerIdBuffer.toString();
-         
-        System.out.println("+++++++++++++++     die offerId ist:");
-        System.out.println(offerId);
         boolean authorized = false;
         
         if (offerId.endsWith("/")) {
