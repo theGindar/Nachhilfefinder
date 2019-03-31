@@ -22,6 +22,7 @@ public class OfferAPI extends Application{
         Set<Class<?>> resources = new HashSet<>();
 
         // Hier für jede Webservice-Klasse eine Zeile hinzufügen
+        resources.add(CORSResponseFilter.class);
         resources.add(OfferResource.class);
 
         return resources;

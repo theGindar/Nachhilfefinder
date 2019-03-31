@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+Copyright © 2018 Dennis Schulmeister-Zimolong
+
+E-Mail: dhbw@windows3.de
+Webseite: https://www.wpvs.de/
+
+Dieser Quellcode ist lizenziert unter einer
+Creative Commons Namensnennung 4.0 International Lizenz.
+-->
+<html>
+    <head>
+        <title>REST-Webservice-Beispiel: AJAX-Client</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="form.css">
+        <link rel="stylesheet" href="style.css">
+
+        <script src="OfferResource.js"></script>
+    </head>
+    <body>
+        <h1>REST-Webservice-Beispiel: AJAX-Client</h1>
+        <!-- Platzhalter für die vorhandenen Songs -->
+        <div id="offers"></div>
+
+        <!-- Ab hier fängt es an, Spaß zu machen 🤩 -->
+        <script>
+            offerResource = new OfferResource();
+            offerResource.setAuthData("asdfasdf", "asdfasdf");
+
+            // Abruf und Anzeige aller Songs, nach Laden der Seite
+            let reloadOffers = async () => {
+                let response = await offerResource.findOffers("");
+
+                if ("exception" in response) {
+                    alert(`[${response.exception}]: ${response.message}`)
+                } else {
+                    let offersElement = document.getElementById("offers");
+                    offersElement.innerHTML = "";
+
+                    response.forEach(offer => {
+                        // Empfangene Daten anzeigen
+                        let offerElement = document.createElement("div");
+                        offerElement.classList.add("offer");
+                        offersElement.appendChild(offerElement);
+
+                        offerElement.innerHTML = `<b>${offer.name}</b> <br/>`
+                                + `<span class="label">Titel:</span> ${offer.title} <br/>`
+                                + `<span class="label">Anbieter:</span> ${offer.username} <br/>`
+                                + `<span class="label">Preis:</span> ${offer.price} <br/>`;
+                    });
+                }
+            };
+
+            window.addEventListener("load", () => reloadOffers());
+
+     
+        </script>
+    </body>
+</html>

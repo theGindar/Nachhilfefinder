@@ -41,7 +41,7 @@
             <select name="search_subject">
                 <option value="">Alle Kategorien</option>
 
-                <c:forEach items="${subjects}" var="category">
+                <c:forEach items="${subjects}" var="subject">
                     <option value="${subject.id}" ${param.search_subject == subject.id ? 'selected' : ''}>
                         <c:out value="${subject.name}" />
                     </option>
@@ -76,11 +76,10 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Bezeichnung</th>
-                            <th>Kategorie</th>
+                            <th>Titel</th>
+                            <th>Fach</th>
                             <th>Eigentümer</th>
                             <th>Status</th>
-                            <th>Fällig am</th>
                         </tr>
                     </thead>
                     <c:forEach items="${offers}" var="offer">

@@ -191,6 +191,10 @@ public class OfferViewServlet extends HttpServlet {
         values.put("offer_title", new String[]{
             offer.getTitle()
         });
+        
+        values.put("offer_price", new String[]{
+            String.valueOf(offer.getPrice()) + "€"
+        });
 
         values.put("offer_description", new String[]{
             offer.getDescription()

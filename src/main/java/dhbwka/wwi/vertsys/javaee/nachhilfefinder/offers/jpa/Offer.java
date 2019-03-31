@@ -57,6 +57,7 @@ public class Offer implements Serializable {
     
     @Column(precision = 5, scale = 2)
     @Min(value = (long) 0.00, message = "Der Preis darf nicht kleiner als 0.00€ sein.")
+    @NotNull(message = "Bitte Preis angeben")
     private double price;
     
     @Enumerated(EnumType.STRING)

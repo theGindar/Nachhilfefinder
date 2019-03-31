@@ -69,7 +69,6 @@
         <auth-constraint>
             <role-name>app-user</role-name>
         </auth-constraint>
-        
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
