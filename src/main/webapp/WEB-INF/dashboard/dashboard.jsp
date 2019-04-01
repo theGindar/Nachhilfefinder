@@ -43,6 +43,10 @@
         <div class="menuitem">
             <a href="<c:url value="/app/offers/list/"/>">Liste aller Angebote</a>
         </div>
+        
+        <div class="menuitem">
+            <a href="<c:url value="/app/offers/ownlist/"/>">Liste eigener Angebote</a>
+        </div>
     </jsp:attribute>
 
     <jsp:attribute name="content">
