@@ -13,6 +13,10 @@ import dhbwka.wwi.vertsys.javaee.nachhilfefinder.common.web.WebUtils;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.dashboard.ejb.DashboardContentProvider;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.dashboard.ejb.DashboardSection;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.dashboard.ejb.DashboardTile;
+import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.ejb.OfferBean;
+import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.ejb.SubjectBean;
+import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa.OfferStatus;
+import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa.Subject;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.tasks.jpa.Category;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.tasks.jpa.TaskStatus;
 import java.util.List;
@@ -22,14 +26,14 @@ import javax.ejb.Stateless;
 /**
  * EJB zur Definition der Dashboard-Kacheln für Aufgaben.
  */
-@Stateless(name = "tasks")
+@Stateless(name = "offers")
 public class DashboardContent implements DashboardContentProvider {
 
     @EJB
-    private CategoryBean categoryBean;
+    private SubjectBean subjectBean;
 
     @EJB
-    private TaskBean taskBean;
+    private OfferBean offerBean;
 
     /**
      * Vom Dashboard aufgerufenen Methode, um die anzuzeigenden Rubriken und
@@ -46,10 +50,10 @@ public class DashboardContent implements DashboardContentProvider {
         sections.add(section);
 
         // Anschließend je Kategorie einen weiteren Abschnitt erzeugen
-        List<Category> categories = this.categoryBean.findAllSorted();
+        List<Subject> subjects = this.subjectBean.findAllSorted();
 
-        for (Category category : categories) {
-            section = this.createSection(category);
+        for (Subject subject : subjects) {
+            section = this.createSection(subject);
             sections.add(section);
         }
     }
@@ -66,46 +70,40 @@ public class DashboardContent implements DashboardContentProvider {
      * @param category Aufgaben-Kategorie, für die Kacheln erzeugt werden sollen
      * @return Neue Dashboard-Rubrik mit den Kacheln
      */
-    private DashboardSection createSection(Category category) {
+    private DashboardSection createSection(Subject subject) {
         // Neue Rubrik im Dashboard erzeugen
         DashboardSection section = new DashboardSection();
         String cssClass = "";
 
-        if (category != null) {
-            section.setLabel(category.getName());
+        if (subject != null) {
+            section.setLabel(subject.getName());
         } else {
-            section.setLabel("Alle Kategorien");
+            section.setLabel("Alle Fächer");
             cssClass = "overview";
         }
 
         // Eine Kachel für alle Aufgaben in dieser Rubrik erzeugen
-        DashboardTile tile = this.createTile(category, null, "Alle", cssClass + " status-all", "calendar");
+        DashboardTile tile = this.createTile(subject, null, "Alle", cssClass + " status-all", "calendar");
         section.getTiles().add(tile);
 
         // Ja Aufgabenstatus eine weitere Kachel erzeugen
-        for (TaskStatus status : TaskStatus.values()) {
+        for (OfferStatus status : OfferStatus.values()) {
             String cssClass1 = cssClass + " status-" + status.toString().toLowerCase();
             String icon = "";
 
             switch (status) {
                 case OPEN:
-                    icon = "doc-text";
-                    break;
-                case IN_PROGRESS:
                     icon = "rocket";
                     break;
-                case FINISHED:
+                case INTERESTED:
                     icon = "ok";
                     break;
-                case CANCELED:
+                case CLOSED:
                     icon = "cancel";
-                    break;
-                case POSTPONED:
-                    icon = "bell-off-empty";
                     break;
             }
 
-            tile = this.createTile(category, status, status.getLabel(), cssClass1, icon);
+            tile = this.createTile(subject, status, status.getLabel(), cssClass1, icon);
             section.getTiles().add(tile);
         }
 
@@ -125,12 +123,12 @@ public class DashboardContent implements DashboardContentProvider {
      * @param icon
      * @return
      */
-    private DashboardTile createTile(Category category, TaskStatus status, String label, String cssClass, String icon) {
-        int amount = taskBean.search(null, category, status).size();
+    private DashboardTile createTile(Subject subject, OfferStatus status, String label, String cssClass, String icon) {
+        int amount = offerBean.search(null, subject, status).size();
         String href = "/app/tasks/list/";
 
-        if (category != null) {
-            href = WebUtils.addQueryParameter(href, "search_category", "" + category.getId());
+        if (subject != null) {
+            href = WebUtils.addQueryParameter(href, "search_category", "" + subject.getId());
         }
 
         if (status != null) {

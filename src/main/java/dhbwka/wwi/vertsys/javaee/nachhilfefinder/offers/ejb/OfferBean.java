@@ -76,7 +76,7 @@ public class OfferBean extends EntityBean<Offer, Long> {
         
         // WHERE t.status = :status
         if (status != null) {
-            p = cb.and(p, cb.equal(from.get("offerStatus"), status));
+            p = cb.and(p, cb.equal(from.get("status"), status));
             query.where(p);
         }
         

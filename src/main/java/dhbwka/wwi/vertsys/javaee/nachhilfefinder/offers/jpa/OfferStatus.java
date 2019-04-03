@@ -13,20 +13,16 @@ import javax.persistence.Entity;
  * @author Jan Leyendecker
  */
 public enum OfferStatus {
-    OPEN, IN_PROGRESS, FINISHED, CANCELED, POSTPONED;
+    OPEN, INTERESTED, CLOSED;
 
     public String getLabel() {
         switch (this) {
             case OPEN:
                 return "Offen";
-            case IN_PROGRESS:
-                return "In Bearbeitung";
-            case FINISHED:
-                return "Erledigt";
-            case CANCELED:
-                return "Abgebrochen";
-            case POSTPONED:
-                return "Zurückgestellt";
+            case INTERESTED:
+                return "Es gibt Interessenten";
+            case CLOSED:
+                return "Nicht mehr verfügbar";
             default:
                 return this.toString();
         }

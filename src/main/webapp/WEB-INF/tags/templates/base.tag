@@ -39,7 +39,7 @@
             <%-- Titelzeile --%>
             <div id="titlebar">
                 <div class="appname">
-                    Aufgabenliste
+                    Nachhilfefinder
                 </div>
                 <div class="content">
                     ${title}
