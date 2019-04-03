@@ -10,6 +10,8 @@
 package dhbwka.wwi.vertsys.javaee.nachhilfefinder.common.ejb;
 
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.common.jpa.User;
+import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa.Offer;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJBContext;
@@ -36,6 +38,13 @@ public class UserBean {
      */
     public User getCurrentUser() {
         return this.em.find(User.class, this.ctx.getCallerPrincipal().getName());
+    }
+    
+    public User getUserByUsername(String username){
+        List result = em.createQuery("SELECT u FROM User u WHERE u.username = :username")
+                 .setParameter("username", username)
+                 .getResultList();
+        return (User)result.get(0);
     }
 
     /**
