@@ -13,33 +13,45 @@ Creative Commons Namensnennung 4.0 International Lizenz.
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="form.css">
         <link rel="stylesheet" href="style.css">
 
-        <script src="OfferResource.js"></script>
+        
     </head>
     <body>
         <h1>REST-Client Nachhilfefinder</h1>
         
-        <form id="form">
             Benutzername: <input type="text" id="userinput" name="username"><br>
             Passwort: <input type="password" id="passwordinput" name="password"><br>
-            <input type="submit" value="suchen">
-        </form>
+            <button id="button">suchen"</button>
+        
         <div id="offers"></div>
 
         <script>
-            $('#form').submit(function() {
+            console.log("hallo");
+            $("#button").click(function () {
                 var username = $("#userinput").val();
                 var password = $("#passwordinput").val();
                 var authkey = btoa(username + ":" + password);
-                /*$.ajax({
+                console.log("hallo");
+                $("#platzhalter").empty();
+
+                $.ajax({
                     mode: "no-cors",
                     type: "GET",
-                    beforeSend: function (request) {
-                        request.setRequestHeader("Authorization", "Basic " + authkey);
+                    url: "https://localhost:8443/Nachhilfefinder/api/Offers/1",
+                    /*beforeSend: function (request) {
+                        console.log(request);
+                        request.setRequestHeader("Authorization", "Basic YXNkZmFzZGY6YXNkZmFzZGY=");
+                        
+                    },*/
+                    headers: {
+                        "Authorization": "Basic " + "YXNkZmFzZGY6YXNkZmFzZGY="
                     },
-                    url: "https://localhost:8443/Nachhilfefinder/api/Offers/1"
+                    success: function (){
+                        alert('Thanks for your comment!'); 
+                    }
+                    
+                    
                 }).then(function (data) {
                     alert("juhuuu");
                     $('#offers').append($('<h2>', {
@@ -51,7 +63,7 @@ Creative Commons Namensnennung 4.0 International Lizenz.
                             text: "tralala"
                         }));
                     });
-                });*/
+                });
 
                 /*$.ajax({ 
                     mode: "no-cors",

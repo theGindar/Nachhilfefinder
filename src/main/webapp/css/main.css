@@ -23,7 +23,7 @@ html {
     font-size: 14pt;
 
     background-color: rgb(250, 250, 250);
-    color: rgb(83, 91, 94);
+    color: rgb(250, 250, 250);
 
     background-image: url(../img/background.jpg);
     background-repeat: no-repeat;
@@ -58,7 +58,7 @@ header, main {
 
 /* Titelzeile */
 #titlebar {
-    color: rgb(145, 204, 229);
+    color: rgb(7, 196, 67);
     font-size: 260%;
     margin-bottom: 1rem;
 }
@@ -74,7 +74,7 @@ header, main {
 }
 
 #titlebar .appname {
-    color: rgb(83, 149, 176);
+    color: rgb(0, 163, 51);
 }
 
 /* Menüzeile */
@@ -86,7 +86,7 @@ header, main {
 
 /* Farben für Links */
 a, a:visited {
-    color: rgb(193, 33, 33);
+    color: rgb(0, 94, 29);
     text-decoration: none;
 }
 

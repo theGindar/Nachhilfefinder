@@ -32,7 +32,7 @@
             Alle URLs beginnend mit /app/ schützen
         -->
         <web-resource-collection>
-            <web-resource-name>Offers</web-resource-name>
+            <web-resource-name>todo-app</web-resource-name>
             <url-pattern>/app/*</url-pattern>
         </web-resource-collection>
         
@@ -55,24 +55,18 @@
         </user-data-constraint>
     </security-constraint>
     
-    <security-constraint>
-        <web-resource-collection>
-            <!-- Betroffen sind alle URLS /api/Songs/* -->
-            <web-resource-name>Offers</web-resource-name>
-            <url-pattern>/api/Offers/*</url-pattern>
-
-            <!-- Aber nur bei diesen HTTP-Verben -->
-            <http-method>GET</http-method>
-        </web-resource-collection>
-
-        <!-- Rolle, die der Benutzer haben muss -->
-        <auth-constraint>
-            <role-name>app-user</role-name>
-        </auth-constraint>
-        <user-data-constraint>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>
-    </security-constraint>
+    <filter>
+        <filter-name>BasicLoginFilter</filter-name>
+        <filter-class>dhbwka.wwi.vertsys.javaee.nachhilfefinder.common.api.BasicLoginFilter</filter-class>
+        <init-param>
+            <param-name>role-names-comma-sep</param-name>
+            <param-value>app-user</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>BasicLoginFilter</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
 
     <!--
         Übersicht über alle von dieser Webanwendung genutzten Benutzerollen

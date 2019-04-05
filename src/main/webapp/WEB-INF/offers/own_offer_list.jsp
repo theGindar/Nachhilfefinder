@@ -12,7 +12,7 @@
 
 <template:base>
     <jsp:attribute name="title">
-        Liste der Aufgaben
+        Liste der eigenen Angebote
     </jsp:attribute>
 
     <jsp:attribute name="head">

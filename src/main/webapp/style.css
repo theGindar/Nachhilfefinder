@@ -1,0 +1,43 @@
+/*
+Copyright © 2018 Dennis Schulmeister-Zimolong
+
+E-Mail: dhbw@windows3.de
+Webseite: https://www.wpvs.de/
+
+Dieser Quellcode ist lizenziert unter einer
+Creative Commons Namensnennung 4.0 International Lizenz.
+*/
+
+html {
+    font-family: sans-serif;
+    font-size: 12pt;
+    
+    /* https://picsum.photos/5472/3648?image=821 */
+    background-image: url(https://picsum.photos/2048/1365?image=453);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+html, body {
+    min-height: 100%;
+}
+
+h1 {
+    color: crimson;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+.song {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 0.5em;
+    padding: 1em;
+    margin: 1em;
+    
+    border: 1px solid rgba(255, 255, 255, 0.75);
+}
+
+.label {
+    color: rgb(70,70,70);
+}

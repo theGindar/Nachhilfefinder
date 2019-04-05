@@ -7,13 +7,13 @@
 package dhbwka.wwi.vertsys.javaee.nachhilfefinder.common.api;
 
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.ejb.OfferBean;
-import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.ejb.ShortOffer;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa.Offer;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -27,6 +27,7 @@ import javax.ws.rs.core.MediaType;
  */
 //@Stateless
 @Path("Offers")
+@Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class OfferResource {
     @EJB
@@ -35,6 +36,7 @@ public class OfferResource {
     @GET
     @Path("{id}")
     public ShortOffer getOfferById(@PathParam("id") long id){
+        System.out.println("Habe Anfrage an REST Service erhalten!");
         return convertOfferToShortOffer(this.offerBean.findById(id));
     }
     

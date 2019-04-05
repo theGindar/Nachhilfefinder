@@ -12,7 +12,7 @@
 
 <template:base>
     <jsp:attribute name="title">
-        Liste der Aufgaben
+        Liste der Angebote
     </jsp:attribute>
 
     <jsp:attribute name="head">
@@ -31,7 +31,7 @@
             <input type="text" name="search_text" value="${param.search_text}" placeholder="Beschreibung"/>
 
             <select name="search_subject">
-                <option value="">Alle Kategorien</option>
+                <option value="">Alle Fächer</option>
 
                 <c:forEach items="${subjects}" var="subject">
                     <option value="${subject.id}" ${param.search_subject == subject.id ? 'selected' : ''}>

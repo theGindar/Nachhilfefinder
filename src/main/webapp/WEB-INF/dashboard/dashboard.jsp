@@ -41,6 +41,10 @@
         <div class="menuitem">
             <a href="<c:url value="/app/offers/ownlist/"/>">Liste eigener Angebote</a>
         </div>
+        
+        <div class="menuitem">
+            <a href="<c:url value="/app/user/"/>">Benutzerdaten ändern</a>
+        </div>
     </jsp:attribute>
 
     <jsp:attribute name="content">

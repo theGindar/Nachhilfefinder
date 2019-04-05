@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.ejb;
+package dhbwka.wwi.vertsys.javaee.nachhilfefinder.common.api;
 
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa.OfferStatus;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa.Subject;
@@ -26,7 +26,6 @@ public class ShortOffer {
     
     private double price;
     
-    private OfferStatus status = OfferStatus.OPEN;
     
     public ShortOffer(long id, String username, String title, String description, double price){
         this.id = id;
@@ -82,14 +81,6 @@ public class ShortOffer {
 
     public void setSubject(Subject subject) {
         this.subject = subject;
-    }
-    
-    public OfferStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(OfferStatus status) {
-        this.status = status;
     }
     
     
