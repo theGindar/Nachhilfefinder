@@ -1,12 +1,10 @@
 /*
- * Copyright © 2019 Jan Leyendecker, Kevin Hartmann, Patrick Günther
- * 
- * Dieser Quellcode ist lizenziert unter einer
- * Creative Commons Namensnennung 4.0 International Lizenz.
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.web;
 
-import dhbwka.wwi.vertsys.javaee.nachhilfefinder.common.ejb.UserBean;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.ejb.OfferBean;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.ejb.SubjectBean;
 import dhbwka.wwi.vertsys.javaee.nachhilfefinder.offers.jpa.Offer;
@@ -33,18 +31,46 @@ public class OfferListServlet extends HttpServlet {
     
     @EJB
     private OfferBean offerBean;
-    
-    @EJB
-    private UserBean userBean;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<Offer> offers = this.offerBean.findByUsername(this.userBean.getCurrentUser().getUsername());
+        // Verfügbare Fächer und Stati für die Suchfelder ermitteln
+        request.setAttribute("subjects", this.subjectBean.findAllSorted());
+        request.setAttribute("statuses", OfferStatus.values());
+
+        // Suchparameter aus der URL auslesen
+        String searchText = request.getParameter("search_text");
+        String searchSubject = request.getParameter("search_subject");
+        String searchStatus = request.getParameter("search_status");
+
+        // Anzuzeigende Angebote suchen
+        Subject subject = null;
+        OfferStatus status = null;
+
+        if (searchSubject != null) {
+            try {
+                subject = this.subjectBean.findById(Long.parseLong(searchSubject));
+            } catch (NumberFormatException ex) {
+                subject = null;
+            }
+        }
+
+        if (searchStatus != null) {
+            try {
+                status = OfferStatus.valueOf(searchStatus);
+            } catch (IllegalArgumentException ex) {
+                status = null;
+            }
+
+        }
+
+        List<Offer> offers = this.offerBean.search(searchText, subject, status);
         request.setAttribute("offers", offers);
 
         // Anfrage an die JSP weiterleiten
         request.getRequestDispatcher("/WEB-INF/offers/all_offer_list.jsp").forward(request, response);
     }
 }
+

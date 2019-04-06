@@ -66,6 +66,12 @@ public class ChangeUserdataServlet extends HttpServlet {
 
         User user = this.userBean.getCurrentUser();
         
+        try {
+            this.userBean.changePassword(user, oldpassword, newpassword);
+            System.out.println("altes passwort: " + oldpassword + " neues passwort: " + newpassword );
+        } catch (UserBean.InvalidCredentialsException ex) {
+            errors.add("Fehler bei Passwort"); 
+        }
 
         user.setFirstName(firstname);
         user.setLastName(lastname);
@@ -77,12 +83,6 @@ public class ChangeUserdataServlet extends HttpServlet {
             this.userBean.update(user);
         }
         
-        try {
-            this.userBean.changePassword(user, oldpassword, newpassword);
-            System.out.println("altes passwort: " + oldpassword + " neues passwort: " + newpassword );
-        } catch (UserBean.InvalidCredentialsException ex) {
-            errors.add("Fehler bei Passwort"); 
-        }
 
         // Weiter zur nächsten Seite
         if (errors.isEmpty()) {
