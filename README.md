@@ -1,8 +1,10 @@
-Beispielanwendung "jTodo"
+Anwendung "Nachhilfefinder"
 =========================
 
 Kurzbeschreibung
 ----------------
+Durch diese Anwendung können Nutzer entweder Nachhilfeangebote für ander Nutzer erstellen, oder Angebote anderer Nutzer sehen.
+Bei Interesse für ein Angebot, kann dies dem Verfasser gezeigt werden.
 
 
 Verwendete Technologien
@@ -37,5 +39,3 @@ Dieses Projekt ist lizenziert unter
 
 © 2018 – 2019 Jan Leyendecker, Kevin Hartmann, Patrick Günther <br/>
 
-E-Mail: [dhbw@windows3.de](mailto:dhbw@windows3.de) <br/>
-Webseite: https://www.wpvs.de
