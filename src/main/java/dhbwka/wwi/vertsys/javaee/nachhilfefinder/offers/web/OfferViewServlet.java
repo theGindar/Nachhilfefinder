@@ -73,13 +73,7 @@ public class OfferViewServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
-
-        if (action == null) {
-            action = "";
-        }else if(action == "apply"){
-            this.applyForOffer(request, response);
-        }
+        applyForOffer(request, response);
     }
 
     /**
@@ -92,37 +86,19 @@ public class OfferViewServlet extends HttpServlet {
      */
     private void applyForOffer(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        // Formulareingaben prüfen
-        List<String> errors = new ArrayList<>();
-
-        String offerStatus = "OPEN";
-
-        Offer offer = this.getRequestedOffer(request, response);
-        offer.setStatus(OfferStatus.valueOf(offerStatus));
+        System.out.println("Offerstatus ändern");
+        StringBuffer offerIdBuffer = new StringBuffer(request.getPathInfo());
+        offerIdBuffer.deleteCharAt(0);
+        String offerId = offerIdBuffer.toString();
+        if (offerId.endsWith("/")) {
+            offerId = offerId.substring(0, offerId.length() - 1);
+        }
         
-        this.validationBean.validate(offer, errors);
-
-        // Datensatz speichern
-        if (errors.isEmpty()) {
-            this.offerBean.update(offer);
-        }
-
-        // Weiter zur nächsten Seite
-        if (errors.isEmpty()) {
-            // Keine Fehler: Startseite aufrufen
-            response.sendRedirect(WebUtils.appUrl(request, "/app/offers/list/"));
-        } else {
-            // Fehler: Formuler erneut anzeigen
-            FormValues formValues = new FormValues();
-            formValues.setValues(request.getParameterMap());
-            formValues.setErrors(errors);
-
-            HttpSession session = request.getSession();
-            session.setAttribute("offer_form", formValues);
-
-            response.sendRedirect(request.getRequestURI());
-        }
+        Offer offer = this.offerBean.findById(Integer.parseInt(offerId));
+        offer.setStatus(OfferStatus.INTERESTED);
+        this.offerBean.update(offer);
+        response.sendRedirect(WebUtils.appUrl(request, "/app/offers/list/"));
+        
     }
 
     

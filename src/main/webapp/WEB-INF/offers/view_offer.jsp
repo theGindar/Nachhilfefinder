@@ -37,6 +37,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="content">
+        <form method="post" class="stacked">    
             <div class="column">
                 <%-- CSRF-Token --%>
                 <input type="hidden" name="csrf_token" value="${csrf_token}">
@@ -50,23 +51,6 @@
                 <div class="side-by-side">
                     <p>${offer_form.values["offer_subject"][0]}</p>
                 </div>
-                
-
-                
-
-                <!--<label for="task_status">
-                    Status:
-                    <span class="required">*</span>
-                </label>
-                <div class="side-by-side margin">
-                    <select name="task_status">
-                        <c:forEach items="${statuses}" var="status">
-                            <option value="${status}" ${offer_form.values["offer_status"][0] == status ? 'selected' : ''}>
-                                <c:out value="${status.label}"/>
-                            </option>
-                        </c:forEach>
-                    </select>
-                </div>-->
 
                 <label for="offer_title">Titel:</label>
                 <div class="side-by-side">
@@ -86,11 +70,11 @@
                 <div class="side-by-side">
                     <p>${offer_form.values["offer_description"][0]}</p>
                 </div>
-                <form method="post" class="stacked">
+                
                     <button class="icon-pencil" type="submit" name="action" value="save">
                             Interesse zeigen
                     </button>
-                </form>
+               </form>
 
     </jsp:attribute>
 </template:base>
