@@ -20,6 +20,7 @@
 
     <jsp:attribute name="head">
         <link rel="stylesheet" href="<c:url value="/css/login.css"/>" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     </jsp:attribute>
 
     <jsp:attribute name="menu">
@@ -52,5 +53,8 @@
                 </div>
             </form>
         </div>
+                    
+        
+        
     </jsp:attribute>
 </template:base>

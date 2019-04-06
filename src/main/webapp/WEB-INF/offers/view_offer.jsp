@@ -86,6 +86,11 @@
                 <div class="side-by-side">
                     <p>${offer_form.values["offer_description"][0]}</p>
                 </div>
+                <form method="post" class="stacked">
+                    <button class="icon-pencil" type="submit" name="action" value="save">
+                            Interesse zeigen
+                    </button>
+                </form>
 
     </jsp:attribute>
 </template:base>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+Copyright © 2018 Patrick Günther
+
+Dieser Quellcode ist lizenziert unter einer
+Creative Commons Namensnennung 4.0 International Lizenz.
+-->
+<html>
+    <head>
+        <title>Nachhilfefinder Client</title>
+
+        <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+    </head>
+    <body>
+        <h1>REST-Client Nachhilfefinder</h1>
+        
+            Benutzername: <input type="text" id="userinput" name="username"><br>            
+            Passwort: <input type="password" id="passwordinput" name="password"><br>
+            OfferId: <input type="number" id="searchid" name="searchid"><br>
+            <button id="button">suchen</button>
+            <table id="result_table"></table>
+            <div id="placeholder"></div>
+
+        <script>
+            console.log("hallo");
+            
+            $("#button").click(function () {
+                var username = $("#userinput").val();
+                var password = $("#passwordinput").val();
+                var offerid = $("#searchid").val();
+                var authkey = btoa(username + ":" + password);
+                console.log("hallo");
+                var table = $('#result_table');
+                table.empty();
+
+
+
+                $.ajax({
+                    mode: "no-cors",
+                    type: "GET",
+                    url: "https://localhost:8443/Nachhilfefinder/api/Offers/" + offerid,
+                    headers: {
+                        "Authorization": "Basic " + authkey
+                    }
+                }).then(function (data) {
+                    console.log(data);
+                    createOutput(data);
+                });
+                
+                
+                function createOutput(data){
+                    $('#placeholder').append($('<div>', { text: "Titel: " + data.title }));
+                    $('#placeholder').append($('<div>', { text: "Beschreibung: " + data.description }));
+                    $('#placeholder').append($('<div>', { text: "Ersteller: " + data.username }));
+                    $('#placeholder').append($('<div>', { text: "Titel: " + data.price }));
+                    $('#placeholder').append($('<div>', { text: "Titel: " + data.subject }));
+                }
+            });
+        </script>    
+    </body>
+</html>
